@@ -43,9 +43,10 @@ def create_task(request):
 def delete_task(_request, title):
     # pylint: disable=no-member
     try:
-        Task.objects.get(title=title).delete()
+        task = Task.objects.filter(title=title)
     except Task.DoesNotExist:
         return Http404("Task not found")
+    task.delete()
 
     return HttpResponse("Task deleted")
 
